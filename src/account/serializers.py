@@ -4,6 +4,11 @@ from . import models
 
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+    username = serializers.SerializerMethodField()
+
     class Meta:
         model = models.Profile
-        fields = ('url', 'read', 'wishlist')
+        fields = ('url', 'read', 'wishlist', 'username')
+
+    def get_username(self, obj):
+        return obj.user.username
